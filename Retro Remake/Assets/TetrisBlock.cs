@@ -8,10 +8,12 @@ public class TetrisBlock : MonoBehaviour
     public KeyCode Right;
     public  Vector3 RotationPoint;
     public KeyCode Fall;
+    public KeyCode Rotate;
     private float _previousTime;
     public float fallTime = 0.8f;
-    public static int height = 20;
-    public static int width = 30;
+    
+
+    public Rect bounds;
     //public KeyCode Rotate;
     // public KeyCode drop;
     // Start is called before the first frame update
@@ -41,12 +43,12 @@ public class TetrisBlock : MonoBehaviour
             }
         }
 
-        else if (Input.GetKeyDown(KeyCode.R))
+        else if (Input.GetKeyDown(Rotate))
             {
             //rotate
             transform.Rotate(0, 0, 90, Space.Self);
             if (!ValidMove()) {
-                transform.Rotate(0,0,-90);
+                transform.Rotate(0,0,-90,Space.Self);
             }
             }
         if (Time.time - _previousTime > (Input.GetKey(Fall) ? fallTime / 10 : fallTime))
@@ -66,10 +68,10 @@ public class TetrisBlock : MonoBehaviour
     {
         foreach(Transform children in transform)
         {
-            int roundedX = Mathf.RoundToInt(children.transform.position.x);
-            int roundedY = Mathf.RoundToInt(children.transform.position.y);
+            float roundedX = Mathf.RoundToInt(children.transform.position.x);
+            float roundedY = Mathf.RoundToInt(children.transform.position.y);
 
-            if(roundedX < -4 || roundedX > 5 || roundedX >= width || roundedY < -10 || roundedY >= height)
+            if(roundedX < bounds.xMin || roundedX > bounds.xMax || roundedX >= bounds.width || roundedY < -10 || roundedY >= bounds.height)
             {
                 return false;
             }
