@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class TetrisBlock : MonoBehaviour
 {
@@ -9,8 +10,13 @@ public class TetrisBlock : MonoBehaviour
     public  Vector3 RotationPoint;
     public KeyCode Fall;
     public KeyCode Rotate;
+    public static double height = 13.00198;
+    public static double width = 21.28693;
     private float _previousTime;
     public float fallTime = 0.8f;
+    private bool can_move = true;
+    private static Transform[,] grid = new Transform[width,height];
+
     
 
     public Rect bounds;
@@ -22,45 +28,51 @@ public class TetrisBlock : MonoBehaviour
 
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(Left))
+        if (can_move)
         {
-            transform.position += new Vector3(-1, 0, 0);
-            if (!ValidMove())
+            if (Input.GetKeyDown(Left))
             {
-                transform.position -= new Vector3(-1, 0, 0);
-            }
-        }
-
-        else if (Input.GetKeyDown(Right))
-        {
-            transform.position += new Vector3(1, 0, 0);
-            if (!ValidMove())
-            {
-                transform.position -= new Vector3(1, 0, 0);
-            }
-        }
-
-        else if (Input.GetKeyDown(Rotate))
-            {
-            //rotate
-            transform.Rotate(0, 0, 90, Space.Self);
-            if (!ValidMove()) {
-                transform.Rotate(0,0,-90,Space.Self);
-            }
-            }
-        if (Time.time - _previousTime > (Input.GetKey(Fall) ? fallTime / 10 : fallTime))
-        {
-            transform.position += new Vector3(0, -1, 0);
-            if (!ValidMove())
-            {
-                transform.position -= new Vector3(0, -1, 0);
+                transform.position += new Vector3(-1, 0, 0);
+                if (!ValidMove())
+                {
+                    transform.position -= new Vector3(-1, 0, 0);
+                }
             }
 
-            _previousTime = Time.time;
+            else if (Input.GetKeyDown(Right))
+            {
+                transform.position += new Vector3(1, 0, 0);
+                if (!ValidMove())
+                {
+                    transform.position -= new Vector3(1, 0, 0);
+                }
+            }
 
+            else if (Input.GetKeyDown(Rotate))
+            {
+                //rotate
+                transform.Rotate(0, 0, 90, Space.Self);
+                if (!ValidMove())
+                {
+                    transform.Rotate(0, 0, -90, Space.Self);
+                }
+            }
+            if (Time.time - _previousTime > (Input.GetKey(Fall) ? fallTime / 10 : fallTime))
+            {
+                transform.position += new Vector3(0, -1, 0);
+                if (!ValidMove())
+                {
+                    transform.position -= new Vector3(0, -1, 0);
+                    this.enabled = false;
+                    FindObjectOfType<Spawnpoint>().Spawn();
+                }
+
+                _previousTime = Time.time;
+            }
         }
     }
 
@@ -68,10 +80,12 @@ public class TetrisBlock : MonoBehaviour
     {
         foreach(Transform children in transform)
         {
-            float roundedX = Mathf.RoundToInt(children.transform.position.x);
-            float roundedY = Mathf.RoundToInt(children.transform.position.y);
+            int roundedX = Mathf.RoundToInt(children.transform.position.x);
+            int roundedY = Mathf.RoundToInt(children.transform.position.y);
 
-            if(roundedX < bounds.xMin || roundedX > bounds.xMax || roundedX >= bounds.width || roundedY < -10 || roundedY >= bounds.height)
+            
+
+            if(!bounds.Contains(new Vector2Int(roundedX, roundedY)))
             {
                 return false;
             }
