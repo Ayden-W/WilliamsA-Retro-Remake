@@ -261,8 +261,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4856331585355371672}
-  - component: {fileID: 4856331585355371673}
   - component: {fileID: 4856331585355371674}
+  - component: {fileID: 4856331585355371673}
   m_Layer: 0
   m_Name: Large squere
   m_TagString: Untagged
@@ -289,6 +289,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4856331585355371674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4856331585355371675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c3785f943a8ee48a8caf15fc626412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Left: 276
+  Right: 275
+  RotationPoint: {x: 0, y: 0, z: 0}
+  Fall: 274
+  Rotate: 114
+  fallTime: 0.8
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 13
+    height: 20
 --- !u!60 &4856331585355371673
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -321,30 +345,6 @@ PolygonCollider2D:
       - {x: 1.5165979, y: -0.50813395}
       - {x: 1.5055606, y: 1.4994674}
   m_UseDelaunayMesh: 0
---- !u!114 &4856331585355371674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4856331585355371675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c3785f943a8ee48a8caf15fc626412, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Left: 276
-  Right: 275
-  RotationPoint: {x: 0, y: 0, z: 0}
-  Fall: 274
-  Rotate: 114
-  fallTime: 0.8
-  bounds:
-    serializedVersion: 2
-    x: -6.5
-    y: -10
-    width: 13
-    height: 20
 --- !u!1 &4856331585509006712
 GameObject:
   m_ObjectHideFlags: 0

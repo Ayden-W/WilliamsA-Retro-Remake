@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UnityEngine.UIElements;
 
 public class TetrisBlock : MonoBehaviour
 {
@@ -10,12 +11,13 @@ public class TetrisBlock : MonoBehaviour
     public  Vector3 RotationPoint;
     public KeyCode Fall;
     public KeyCode Rotate;
-    public static double height = 13.00198;
-    public static double width = 21.28693;
+    public static int height = 20;
+    public static int width = 13;
     private float _previousTime;
     public float fallTime = 0.8f;
     private bool can_move = true;
-    private static Transform[,] grid = new Transform[width,height];
+    private static Transform[,] grid = new Transform[width, height];
+     
 
     
 
@@ -67,6 +69,9 @@ public class TetrisBlock : MonoBehaviour
                 if (!ValidMove())
                 {
                     transform.position -= new Vector3(0, -1, 0);
+                    AddToGrid();
+                    CheckForLines();
+
                     this.enabled = false;
                     FindObjectOfType<Spawnpoint>().Spawn();
                 }
@@ -76,6 +81,40 @@ public class TetrisBlock : MonoBehaviour
         }
     }
 
+    void CheckForLines()
+    {
+        for(int i = height; i >= 0; i--)
+        {
+            if (HasLine(i))
+            {
+                deleteLine(i);
+                RowDown(i);
+            }
+        }
+    }
+    bool HasLine(int i)
+    {
+        for (int j = 0; j < width ; j++)
+        {
+
+        }
+    }
+
+    
+
+
+
+
+    void AddToGrid()
+    {
+        foreach(Transform children in transform)
+        {
+            int roundedX = Mathf.RoundToInt(children.transform.position.x);
+            int roundedY = Mathf.RoundToInt(children.transform.position.y);
+
+            grid[roundedX, roundedY] = children;
+        }
+    }
     bool ValidMove()
     {
         foreach(Transform children in transform)
@@ -89,6 +128,9 @@ public class TetrisBlock : MonoBehaviour
             {
                 return false;
             }
+
+            if (grid[roundedX, roundedY] != null)
+                return false;
         }
 
         return true;

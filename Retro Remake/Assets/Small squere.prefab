@@ -138,8 +138,8 @@ MonoBehaviour:
   fallTime: 0.8
   bounds:
     serializedVersion: 2
-    x: -6.5
-    y: -10
+    x: 0
+    y: 0
     width: 13
     height: 20
 --- !u!60 &7692352911922754733

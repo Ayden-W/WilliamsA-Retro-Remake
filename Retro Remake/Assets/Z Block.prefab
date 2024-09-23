@@ -391,11 +391,10 @@ MonoBehaviour:
   Fall: 274
   Rotate: 114
   fallTime: 0.8
-  Blocks: []
   bounds:
     serializedVersion: 2
-    x: -6.5
-    y: -10
+    x: 0
+    y: 0
     width: 13
     height: 20
 --- !u!60 &7078851673539521595
