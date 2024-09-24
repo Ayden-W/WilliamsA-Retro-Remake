@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class TetrisBlock : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class TetrisBlock : MonoBehaviour
     public float fallTime = 0.8f;
     private bool can_move = true;
     private static Transform[,] grid = new Transform[width, height];
-     
+    public int score;
+    
 
     
 
@@ -27,7 +29,7 @@ public class TetrisBlock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        score = 0;
     }
 
 
@@ -83,24 +85,62 @@ public class TetrisBlock : MonoBehaviour
 
     void CheckForLines()
     {
-        for(int i = height; i >= 0; i--)
+        for(int i = height - 1; i >= 0; i--)
         {
             if (HasLine(i))
             {
                 deleteLine(i);
                 RowDown(i);
+                score = score + 50;
             }
         }
     }
+
+   
     bool HasLine(int i)
     {
         for (int j = 0; j < width ; j++)
         {
+            if (grid[j,i] == null) 
+                return false;
+        }
+        return true;
+    }
 
+
+    //Remove line
+    void deleteLine(int i)
+    {
+        for(int j = 0; j < width; j++)
+        {
+            Destroy(grid[j, i].gameObject);
+            grid[j, i] = null;
         }
     }
 
+
+    //move the row down
+    void RowDown(int i)
+    {
+        for (int y=i; y< height; y++)
+        {
+            for(int j = 0; j< width; j++) 
+            { 
+            if (grid[j, y] != null)
+                {
+                    grid[j, y - 1] = grid[j, y];
+                    grid[j, y] = null;
+                    grid[j, y - 1].transform.position -= new Vector3(0, 1, 0);
+                }
+            }
+        }
+    }
     
+
+    void GameOver()
+    {
+        
+    }
 
 
 
@@ -115,6 +155,9 @@ public class TetrisBlock : MonoBehaviour
             grid[roundedX, roundedY] = children;
         }
     }
+    
+
+    //Able to move
     bool ValidMove()
     {
         foreach(Transform children in transform)
