@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TetrisBlock : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class TetrisBlock : MonoBehaviour
     public float fallTime = 0.8f;
     private bool can_move = true;
     private static Transform[,] grid = new Transform[width, height];
-    public int score;
+    public static int score = 0;
     
 
     
@@ -29,13 +30,14 @@ public class TetrisBlock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        score = 0;
+     
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(score);
         if (can_move)
         {
             if (Input.GetKeyDown(Left))
@@ -44,6 +46,7 @@ public class TetrisBlock : MonoBehaviour
                 if (!ValidMove())
                 {
                     transform.position -= new Vector3(-1, 0, 0);
+                    
                 }
             }
 
@@ -89,9 +92,10 @@ public class TetrisBlock : MonoBehaviour
         {
             if (HasLine(i))
             {
+                score += 50;
                 deleteLine(i);
                 RowDown(i);
-                score = score + 50;
+                
             }
         }
     }
@@ -102,6 +106,7 @@ public class TetrisBlock : MonoBehaviour
         for (int j = 0; j < width ; j++)
         {
             if (grid[j,i] == null) 
+
                 return false;
         }
         return true;
@@ -111,10 +116,12 @@ public class TetrisBlock : MonoBehaviour
     //Remove line
     void deleteLine(int i)
     {
-        for(int j = 0; j < width; j++)
+        
+        for (int j = 0; j < width; j++)
         {
             Destroy(grid[j, i].gameObject);
             grid[j, i] = null;
+            
         }
     }
 
