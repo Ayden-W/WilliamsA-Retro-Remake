@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Title screen.unity
     guid: 3282a24d3928a6d499f72812f4376739
   - enabled: 1
-    path: Assets/retro.unity
+    path: Assets/colorblind.unity
     guid: 90bca5026fe8c774ca1a348a8e540e7d
+  - enabled: 1
+    path: Assets/normal.unity
+    guid: 5b80bd6f86bf89f438af0e37803c886b
   m_configObjects: {}
