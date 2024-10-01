@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Score : MonoBehaviour
+public class scoreboard : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField]
-    private TMPro.TMP_Text _title;
-
-    void Update()
+    void Start()
     {
-        _title.SetText( "score" + TetrisBlock.score.ToString());
+        
     }
 
-
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }
