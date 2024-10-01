@@ -79,6 +79,7 @@ public class TetrisBlock : MonoBehaviour
 
                     this.enabled = false;
                     FindObjectOfType<Spawnpoint>().Spawn();
+
                 }
 
                 _previousTime = Time.time;
