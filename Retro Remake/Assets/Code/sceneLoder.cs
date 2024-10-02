@@ -22,5 +22,6 @@ public class sceneLoder : MonoBehaviour
     public void LoadScene(string retro)
     {
         SceneManager.LoadScene(retro);
+        TetrisBlock.score = 0;
     }
 }
